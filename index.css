@@ -3,7 +3,14 @@ body {
     color: white;
 }
 
-.title-input {
+.post-title-input {
+    box-sizing: border-box;
+    display: block;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.post-text-input {
     box-sizing: border-box;
     display: block;
     width: 300px;
