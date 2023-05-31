@@ -8,16 +8,31 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Новый пост</h1>
+    <h1>Приложение блог</h1>
 
-    <input class="js-title-input title-input" 
+    <div class="row">
+        <div class="col">
+            <h2>Новый пост</h2>
+            <input class="js-title-input title-input" 
             type="text">
 
+            <button class="js-new-post-btn new-post-btn">
+                Опубликовать
+            </button>
+        </div>
+        <div class="col">
+                <h2>Лента</h2>
+
+            <div class="js-posts posts">
+                Лента пустая...
+            </div>
+        </div>
+    </div>
+
     
-    <button class="js-new-post-btn new-post-btn">
-        Опубликовать
-    </button>
     
+   
+
 
     <script src="index.js"></script>
 </body>
