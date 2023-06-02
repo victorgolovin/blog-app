@@ -8,54 +8,51 @@ const postTextInputNode = document.querySelector('.js-post-text-input');
 
 let newPostBtnNode = document.querySelector('.js-new-post-btn');
 const postNode = document.querySelector('.js-posts');
-const validationMessage = document.querySelector('.js-validation-message'); // (P)Создаем конст через id
+const validationMessage = document.querySelector('.js-validation-message');
 
 
 newPostBtnNode.addEventListener('click',function() {
-    // (1) получить данные из поля ввода (это function getPostFromUser())
     const postFromUser = getPostFromUser(); 
 
-    // (2) сохранить пост (это function addPost ({title, text}))
-    addPost(postFromUser); // 15 Выводим функцию addPost в которую мы передаем postFromUser
+    addPost(postFromUser);
 
-    // (3) отобразить пост
     renderPosts();
 });
 
-postTitleInputNode.addEventListener('input',function() { // (P)Передаем event обращаемся к 'input'
+postTitleInputNode.addEventListener('input',function() {
     validation()
 });
 
-postTextInputNode.addEventListener('input',function() { // (P) тоже самое делаем и с текстом
+postTextInputNode.addEventListener('input',function() {
     validation()
 });
 
 
 function validation() {
-    const titleLength = postTitleInputNode.value.length; // (P) value - значение, length - длина
+    const titleLength = postTitleInputNode.value.length;
     const textLength = postTextInputNode.value.length;
 
     if (titleLength > TITLE_VALIDATION_LIMIT) {
         validationMessage.innerText = `Заголовок больше ${TITLE_VALIDATION_LIMIT} символов`;
         validationMessage.classList.remove('validation-message-hidden');
-        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true; // ADD BY ME (Скрывает кнопку если много символов)
-        return; // (P) Вернули значение функции
+        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true;
+        return;
     }
     
     if (textLength > TEXT_VALIDATION_LIMIT) {
         validationMessage.innerText = `Пост больше ${TEXT_VALIDATION_LIMIT} символов`;
         validationMessage.classList.remove('validation-message-hidden');
-        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true; // ADD BY ME (Скрывает кнопку если много символов)
-        return; // (P) Вернули значение функции
+        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true;
+        return;
     }
 
-    newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = false; // ADD BY ME (Показывает кнопку)
-    validationMessage.classList.add('validation-message-hidden'); // (P) Это условия выполнится если два верних не выполнится
+    newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = false;
+    validationMessage.classList.add('validation-message-hidden');
 }
 
 
 function getPostFromUser() {
-    const title = postTitleInputNode.value; // value - получение значения
+    const title = postTitleInputNode.value;
     const text = postTextInputNode.value;
 
 
@@ -67,11 +64,11 @@ function getPostFromUser() {
 
 
 function addPost({title, text}) {
-    const currentDate = new Date(); // (P) Создаем переменную и присваеваем ей текущее время
+    const currentDate = new Date();
     const dt = `
     ${(currentDate.getDay() < 9 ? '0': '') + (currentDate.getDay()+1)}.${(currentDate.getMonth() < 9 ? '0': '') + (currentDate.getMonth()+1)}.${currentDate.getFullYear()}
     ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}
-    `; // (P) Извликаем из currentDate нужные нам свойства для даты
+    `;
 
     posts.push({
         dt: dt,

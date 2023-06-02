@@ -1,0 +1,14 @@
+@import url(..//styles/reset.css);
+@import url(..//styles/index.css);
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Manrope&family=Raleway&display=swap");
+
+body {
+    font-family: "Manrope", sans-serif;
+    background-color: black;
+    color: white;
+  }
+  
+  .container {
+    width: 1000px;
+    margin: 0 auto;
+  }
