@@ -1,15 +1,19 @@
-const posts = [];                            // 25 делаем лист, для этого на нужен массив, поэтому меняем let post на const posts = []
+const posts = [];  
 
-const postTitleInputNode = document.querySelector('.js-post-title-input'); // 2 document.querySelector - позвляем достать элемент из html и обратится к нему по классу
-const postTextInputNode = document.querySelector('.js-post-text-input'); // 19 добавляем константу для текста
+const TITLE_VALIDATION_LIMIT = 10;
+const TEXT_VALIDATION_LIMIT = 20;
 
-const newPostBtnNode = document.querySelector('.js-new-post-btn'); // 3 Тоже саме делаем с кнопкой
-const postNode = document.querySelector('.js-posts'); // 6 Создаем константу postNode, в которой у нас должно быть содеожимое постов
+const postTitleInputNode = document.querySelector('.js-post-title-input');
+const postTextInputNode = document.querySelector('.js-post-text-input');
+
+const newPostBtnNode = document.querySelector('.js-new-post-btn');
+const postNode = document.querySelector('.js-posts');
+const validationMessage = document.querySelector('.js-validation-message'); // (P)Создаем конст через id
 
 
-newPostBtnNode.addEventListener('click',function() { // 4 addEventListener добавляем обработчик событий('click') говоирит нам что при нажатии на кнопку что-то произойдет
+newPostBtnNode.addEventListener('click',function() {
     // (1) получить данные из поля ввода (это function getPostFromUser())
-    const postFromUser = getPostFromUser(); // 14 Создаем новую переменную postFromUser и присваеваем ей данные из функции getPostFromUser()
+    const postFromUser = getPostFromUser(); 
 
     // (2) сохранить пост (это function addPost ({title, text}))
     addPost(postFromUser); // 15 Выводим функцию addPost в которую мы передаем postFromUser
@@ -18,55 +22,76 @@ newPostBtnNode.addEventListener('click',function() { // 4 addEventListener до�
     renderPosts();
 });
 
-// 8 Делаем рефакторинг
+postTitleInputNode.addEventListener('input',function() { // (P)Передаем event обращаемся к 'input'
+    validation()
+});
 
-function getPostFromUser() { // 9 создаем функцию которая будет возвращать пост
-    const title = postTitleInputNode.value; // 11 (5 до рефакторинга) задаем переменную для title 
-    const text = postTextInputNode.value; // 20 задаем переменную для text
+postTextInputNode.addEventListener('input',function() { // (P) тоже самое делаем и с текстом
+    validation()
+});
 
-    return {    // 21 будем возвращать обьект
+
+function validation() {
+    const titleLength = postTitleInputNode.value.length; // (P) value - значение, length - длина
+    const textLength = postTextInputNode.value.length;
+
+    if (titleLength > TITLE_VALIDATION_LIMIT) {
+        validationMessage.innerText = `Заголовок больше ${TITLE_VALIDATION_LIMIT} символов`;
+        validationMessage.classList.remove('validation-message-hidden');
+        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true; // ADD BY ME (Скрывает кнопку если много символов)
+        return; // (P) Вернули значение функции
+    }
+    
+    if (textLength > TEXT_VALIDATION_LIMIT) {
+        validationMessage.innerText = `Пост больше ${TEXT_VALIDATION_LIMIT} символов`;
+        validationMessage.classList.remove('validation-message-hidden');
+        newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = true; // ADD BY ME (Скрывает кнопку если много символов)
+        return; // (P) Вернули значение функции
+    }
+
+    newPostBtnNode = document.querySelector('.js-new-post-btn').disabled = false; // ADD BY ME (Показывает кнопку)
+    validationMessage.classList.add('validation-message-hidden'); // (P) Это условия выполнится если два верних не выполнится
+}
+
+
+function getPostFromUser() {
+    const title = postTitleInputNode.value; // value - получение значения
+    const text = postTextInputNode.value;
+
+
+    return {
         title: title,
         text: text,
     }; 
 }
 
-function addPost({title, text}) { // 12 Создаем функцию которая будет создавать нам пост, в скобках пишем из чего он будет пока состоять в данном случае мы будем передавать newPost
+
+function addPost({title, text}) {
     posts.push({
         title: title,
         text: text,
-    }); // 13 Передаем значение переменной в newPost
-}                     // 26 Делаем метод addPost и он будет получать post
-                        // 27 пишем posts.push() команда push позваляет нам добавить post в массив 
-                        // 28 для лучшей читаемости пишем в функцию обьекты {title, text} и пушим их в массив
+    });
+}
 
 
-function getPosts() { // 22 создаем getPost который будет возвращать post
+function getPosts() {
     return posts;
 }
 
-function renderPosts() {  // 16 Создаем функцию которая будет нам отображать посты
-    const post = getPosts(); // 23 обращаемся к функции getPost() в которой возвращаем post
-                            // 24 Ниже обращаемся к post через див 
+function renderPosts() {
+    const posts = getPosts();
 
-    let postsHTML = ''; // 30 Создаем postsHTML
+    let postsHTML = '';
 
 
-    posts.forEach(post => { // 29 Создаем цикл 
+    posts.forEach(post => { 
         postsHTML += `
             <div class='post'>
                 <p class='post__title'>${post.title}</p> 
                 <p class='post__text'>${post.text}</p>
             </div>
         `
-    });                       // 31 Копируем содержимое postHTML в posts.forEach, тут мы обращаемся к каждому посту в цикле
+    });
 
-    // const postHTML = `
-    // <div class='post'>
-    //     <p class='post__title'>${post.title}</p>
-    //     <p class='post__text'>${post.text}</p>
-    // </div>
-    // `;
-
-    postNode.innerHTML = postsHTML; // 24 содержимое постов postNode через innerHTML приравниваем к postHTML
-                                    // 32 ставим postsHTML
+    postNode.innerHTML = postsHTML;
 };

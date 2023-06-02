@@ -27,3 +27,12 @@ body {
     display: flex;
     gap: 30px;
 }
+
+.validation-message {
+    margin-top: 30px;
+    color: red;
+}
+
+.validation-message-hidden {
+    display: none;
+}

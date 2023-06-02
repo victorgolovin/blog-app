@@ -14,14 +14,20 @@
         <div class="col">
             <h2>Новый пост</h2>
             <input class="js-post-title-input post-title-input" 
-                    type="text">
+                    type="text"
+                    placeholder="Заголовок"
+            />
+                    
 
-            <input class="js-post-text-input post-text-input"
-                    type="text">
+            <textarea class="js-post-text-input post-text-input"
+            type="text"
+            placeholder="Текст"></textarea>
 
-            <button class="js-new-post-btn new-post-btn">
+            <button class="js-new-post-btn new-post-btn js-remove-btn">
                 Опубликовать
             </button>
+
+            <div class="js-validation-message validation-message validation-message-hidden"></div>
         </div>
         <div class="col">
                 <h2>Лента</h2>
