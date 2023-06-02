@@ -6,7 +6,7 @@ const TEXT_VALIDATION_LIMIT = 20;
 const postTitleInputNode = document.querySelector('.js-post-title-input');
 const postTextInputNode = document.querySelector('.js-post-text-input');
 
-const newPostBtnNode = document.querySelector('.js-new-post-btn');
+let newPostBtnNode = document.querySelector('.js-new-post-btn');
 const postNode = document.querySelector('.js-posts');
 const validationMessage = document.querySelector('.js-validation-message'); // (P)Создаем конст через id
 
@@ -67,7 +67,14 @@ function getPostFromUser() {
 
 
 function addPost({title, text}) {
+    const currentDate = new Date(); // (P) Создаем переменную и присваеваем ей текущее время
+    const dt = `
+    ${(currentDate.getDay() < 9 ? '0': '') + (currentDate.getDay()+1)}.${(currentDate.getMonth() < 9 ? '0': '') + (currentDate.getMonth()+1)}.${currentDate.getFullYear()}
+    ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}
+    `; // (P) Извликаем из currentDate нужные нам свойства для даты
+
     posts.push({
+        dt: dt,
         title: title,
         text: text,
     });
@@ -87,6 +94,7 @@ function renderPosts() {
     posts.forEach(post => { 
         postsHTML += `
             <div class='post'>
+                <p class='post__date'>${post.dt}</p> 
                 <p class='post__title'>${post.title}</p> 
                 <p class='post__text'>${post.text}</p>
             </div>
