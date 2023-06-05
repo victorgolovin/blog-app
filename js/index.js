@@ -11,6 +11,11 @@ const postNode = document.querySelector(".js-posts");
 const validationMessage = document.querySelector(".js-validation-message");
 
 newPostBtnNode.addEventListener("click", function () {
+  if (postTitleInputNode.value === '') { // new
+    return
+  } 
+
+
   const postFromUser = getPostFromUser();
 
   addPost(postFromUser);
