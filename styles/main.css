@@ -87,10 +87,24 @@ body {
     font-size: 22px;
     line-height: 30px;
   }
-  
+
   .post__text {
     width: 100%;
     font-size: 18px;
     line-height: 25px;
+  }
+}
+
+@media (max-width: 389px) {
+  .post-title-input {
+    width: 200px;
+  }
+
+  .post-text-input {
+    width: 200px;
+  }
+
+  .blog-app-event-title {
+    width: 300px;
   }
 }
