@@ -3,26 +3,26 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Manrope&family=Raleway&display=swap");
 
 body {
-    font-family: "Manrope", sans-serif;
-    background-color: black;
-    color: white;
-  }
-  
+  font-family: "Manrope", sans-serif;
+  background-color: black;
+  color: white;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 949px) {
   .container {
-    width: 100%;
-    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
-  @media (max-width: 949px) {
-    .container {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-
-    .blog-app-list {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 60px;
-    }
+  .blog-app-list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+  }
 }

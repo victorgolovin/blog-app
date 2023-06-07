@@ -2,6 +2,8 @@ const posts = [];
 
 const TITLE_VALIDATION_LIMIT = 100;
 const TEXT_VALIDATION_LIMIT = 200;
+const TITLE_VALIDATION = "Введите заголовок!";
+const TEXT_VALIDATION = "Введите текст!";
 
 const postTitleInputNode = document.querySelector(".js-post-title-input");
 const postTextInputNode = document.querySelector(".js-post-text-input");
@@ -11,20 +13,16 @@ const postNode = document.querySelector(".js-posts");
 const validationMessage = document.querySelector(".js-validation-message");
 
 newPostBtnNode.addEventListener("click", function () {
-  if (postTitleInputNode.value === '') {
-    validationMessage.innerText = `Введите заголовок!`
-    validationMessage.classList.remove("validation-message-hidden");
+  if (postTitleInputNode.value === "") {
+    emptyString();
     return;
   }
 
-  if (postTextInputNode.value === '') {
-    validationMessage.innerText = `Введите Текст!`
-    validationMessage.classList.remove("validation-message-hidden");
+  if (postTextInputNode.value === "") {
+    emptyString();
     return;
   }
 
-  validationMessage.classList.add("validation-message-hidden");
-  
   const postFromUser = getPostFromUser();
 
   addPost(postFromUser);
@@ -32,7 +30,6 @@ newPostBtnNode.addEventListener("click", function () {
   clearInput();
 
   renderPosts();
-
 });
 
 postTitleInputNode.addEventListener("input", function () {
@@ -66,13 +63,23 @@ function validation() {
 }
 
 function clearInput() {
-  postTitleInputNode.value = '';
-  postTextInputNode.value = '';
+  postTitleInputNode.value = "";
+  postTextInputNode.value = "";
 }
 
+function emptyString() {
+  if (postTextInputNode.value === "")
+    validationMessage.innerText = `${TEXT_VALIDATION}`;
+  validationMessage.classList.remove("validation-message-hidden");
+
+  if (postTitleInputNode.value === "")
+    validationMessage.innerText = `${TITLE_VALIDATION}`;
+  validationMessage.classList.remove("validation-message-hidden");
+
+  return;
+}
 
 function getPostFromUser() {
-  
   const title = postTitleInputNode.value;
   const text = postTextInputNode.value;
 
