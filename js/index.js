@@ -11,16 +11,28 @@ const postNode = document.querySelector(".js-posts");
 const validationMessage = document.querySelector(".js-validation-message");
 
 newPostBtnNode.addEventListener("click", function () {
-  if (postTitleInputNode.value === '') { // new
-    return
-  } 
+  if (postTitleInputNode.value === '') {
+    validationMessage.innerText = `Введите заголовок!`
+    validationMessage.classList.remove("validation-message-hidden");
+    return;
+  }
 
+  if (postTextInputNode.value === '') {
+    validationMessage.innerText = `Введите Текст!`
+    validationMessage.classList.remove("validation-message-hidden");
+    return;
+  }
 
+  validationMessage.classList.add("validation-message-hidden");
+  
   const postFromUser = getPostFromUser();
 
   addPost(postFromUser);
 
+  clearInput();
+
   renderPosts();
+
 });
 
 postTitleInputNode.addEventListener("input", function () {
@@ -29,7 +41,6 @@ postTitleInputNode.addEventListener("input", function () {
 
 postTextInputNode.addEventListener("input", function () {
   validation();
-  emptyInputText();
 });
 
 function validation() {
@@ -54,7 +65,14 @@ function validation() {
   validationMessage.classList.add("validation-message-hidden");
 }
 
+function clearInput() {
+  postTitleInputNode.value = '';
+  postTextInputNode.value = '';
+}
+
+
 function getPostFromUser() {
+  
   const title = postTitleInputNode.value;
   const text = postTextInputNode.value;
 
