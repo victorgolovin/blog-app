@@ -92,14 +92,8 @@ function getPostFromUser() {
 function addPost({ title, text }) {
   const currentDate = new Date();
   const dt = `
-    ${(currentDate.getDay() < 9 ? "0" : "") + (currentDate.getDay() + 1)}.${
-    (currentDate.getMonth() < 9 ? "0" : "") + (currentDate.getMonth() + 1)
-  }.${currentDate.getFullYear()}
-    ${currentDate.getHours()}:${
-    (currentDate.getMinutes() < 9 ? "0" : "") + (currentDate.getMinutes() + 1)
-  }:${
-    (currentDate.getSeconds() < 9 ? "0" : "") + (currentDate.getSeconds() + 1)
-  }
+    ${currentDate.toLocaleDateString().slice()}
+    ${currentDate.toLocaleTimeString().slice()}
     `;
 
   posts.push({
